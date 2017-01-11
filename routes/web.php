@@ -19,6 +19,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
+Route::get('/api_error', 'ApiLoginController@api_error');
+
 Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function () {
     //Route::resource('movie', 'MovieController');
     Route::get('movie', 'MovieController@index');
