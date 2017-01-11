@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Movie;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
 
 class MovieController extends Controller
 {
@@ -19,7 +18,7 @@ class MovieController extends Controller
         if ($response) {
             return response()->json($response, 200);
         } else {
-            return response()->json('No records exist!!', 400);
+            return response()->json(['error' => 'No records exist!!'], 400);
         }
     }
 
@@ -38,7 +37,7 @@ class MovieController extends Controller
         $movie->rate = $request->input('rate')?$request->input('rate'):0;
         $movie->note = $request->input('note')?$request->input('note'):'';
         $movie->save();
-        return response()->json('Record created!', 200);
+        return response()->json(['message' => 'Record created!'], 200);
     }
 
     /**
@@ -53,7 +52,7 @@ class MovieController extends Controller
         if ($response) {
             return response()->json($response, 200);
         } else {
-            return response()->json('Record does not exist!', 400);
+            return response()->json(['error' => 'Record does not exist!'], 400);
         }
     }
 
@@ -73,7 +72,7 @@ class MovieController extends Controller
         if($request->input('rate')) $movie->rate = $request->input('rate');
         if($request->input('note')) $movie->note = $request->input('note');
         $movie->save();
-        return response()->json('Record is successfully updated!', 200);
+        return response()->json(['message' => 'Record is successfully updated!'], 200);
     }
 
     /**
@@ -85,6 +84,6 @@ class MovieController extends Controller
     public function destroy($id)
     {
         Movie::find($id)->delete();
-        return response()->json('Record is successfully deleted!', 200);
+        return response()->json(['message' => 'Record is successfully deleted!'], 200);
     }
 }
