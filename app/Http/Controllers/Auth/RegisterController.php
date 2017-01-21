@@ -36,10 +36,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
-
-        /* To prevent guest registration.
-        $this->middleware('auth'); */
+        $this->middleware('auth');
     }
 
     /**
@@ -68,7 +65,7 @@ class RegisterController extends Controller
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'api_token' => str_random(64),
+            'api_token' => str_random(60),
             'password' => bcrypt($data['password']),
         ]);
     }

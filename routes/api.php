@@ -13,6 +13,26 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:api');
+Route::match(['get', 'post'], '/user', [
+	'uses' => 'ApiUserController@login'
+]);
+
+Route::get('movies', [
+	'uses' => 'MovieController@getAllMovies',
+	'middleware' => 'auth:api',
+]);
+
+Route::get('movie/{id}', [
+	'uses' => 'MovieController@getMovie',
+	'middleware' => 'auth:api',
+]);
+
+Route::post('movie', [
+	'uses' => 'MovieController@createMovie',
+	'middleware' => 'auth:api',
+]);
+
+Route::put('movie/{id}', [
+	'uses' => 'MovieController@updateMovie',
+	'middleware' => 'auth:api',
+]);

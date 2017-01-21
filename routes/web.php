@@ -18,15 +18,3 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
-
-Route::get('/api_error', 'ApiLoginController@api_error');
-
-Route::group(['prefix' => 'api', 'middleware' => 'auth:api'], function () {
-    //Route::resource('movie', 'MovieController');
-    Route::get('movie', 'MovieController@index');
-    Route::get('movie/{id}', 'MovieController@show');
-    Route::post('movie', 'MovieController@store');
-    Route::match(['patch', 'put'],'movie/{id}', 'MovieController@update');
-});
-
-Route::match(['get', 'post'], 'get_api_token', 'ApiLoginController@index');
